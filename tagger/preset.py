@@ -5,7 +5,7 @@ import json
 from typing import Tuple, List, Dict
 from pathlib import Path
 from gradio.context import Context
-from modules.images import FilenameGenerator
+from modules.images import sanitize_filename_part  # pylint: disable=E0401
 
 PresetDict = Dict[str, Dict[str, any]]
 
@@ -54,7 +54,7 @@ class Preset:
         if not filename.endswith('.json'):
             filename += '.json'
 
-        path = self.base_dir.joinpath(FilenameGenerator.sanitize(None, filename)) # FilenameGenerator does not need a reference to itself.
+        path = self.base_dir.joinpath(sanitize_filename_part(filename))
         configs = {}
 
         if path.is_file():
