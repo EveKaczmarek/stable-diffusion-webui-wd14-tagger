@@ -1,11 +1,25 @@
 """Purpose: Pydantic models for the API."""
-from typing import List, Dict
+from typing import Dict, List
 
-from modules.api import models as sd_models  # pylint: disable=E0401
 from pydantic import BaseModel, Field
 
 
-class TaggerInterrogateRequest(sd_models.InterrogateRequest):
+# Reimplement the missing InterrogateRequest class from older webui versions
+# This makes the extension self sufficient and compatible with Forge Neo.
+class InterrogateRequest(BaseModel):
+    image: str = Field(
+        default="",
+        title="Image",
+        description="Image to work on, must be a Base64 string containing the image's data."
+    )
+    model: str = Field(
+        default="clip",
+        title="Model",
+        description="The interrogate model used."
+    )
+
+
+class TaggerInterrogateRequest(InterrogateRequest):
     """Interrogate request model"""
     model: str = Field(
         title='Model',
