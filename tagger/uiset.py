@@ -19,6 +19,7 @@ from tagger import format as tags_format  # pylint: disable=import-error
 from tagger import settings  # pylint: disable=import-error
 
 Its = settings.InterrogatorSettings
+re_special = re_comp(r'([\\()])')
 
 # PIL.Image.registered_extensions() returns only PNG if you call early
 supported_extensions = {
